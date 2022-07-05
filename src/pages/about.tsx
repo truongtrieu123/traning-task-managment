@@ -1,19 +1,21 @@
+import { AuthWrapper } from "containers/auth/auth-wrapper";
 import DefaultLayout from "containers/layout/layout";
 import Link from "next/link";
 import { GetStaticProps, InferGetStaticPropsType } from "next/types";
-import { AuthGuard } from "containers/auth/auth-guard";
 
 const AboutPage = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <AuthGuard>
+    <AuthWrapper>
       <DefaultLayout>
+        <div>
         <h1>About</h1>
         <p>This is the about page</p>
         <p>
           <Link href="/dashboard">Go home</Link>
         </p>
+        </div>
       </DefaultLayout>
-    </AuthGuard>
+    </AuthWrapper>
   );
 };
 

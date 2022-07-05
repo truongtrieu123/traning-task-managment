@@ -86,6 +86,13 @@ button.post-button.btn:active {
 	box-shadow: none;
 }
 
+.navbar {
+	background-color: #78c2ad!important;
+	color:#fff;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
 /* Add new post tooltip */
 .tooltip {
 	background: transparent;

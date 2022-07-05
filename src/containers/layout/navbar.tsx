@@ -1,14 +1,16 @@
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "utils/hooks";
 import { logoutUser } from "store/actions/auth-action";
+import { Router, useRouter } from "next/router";
 
 const NavbarMenu = () => {
   const authStore = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
+  
   return (
-    <Navbar expand="lg" bg="primary" variant="dark" className="shadow d-flex">
-      <Navbar.Brand className="font-weight-bolder text-white">
+    <Navbar expand="lg" bg="primary" variant="dark" className="shadow">
+      <Navbar.Brand className="fw-bolder text-white">
         <img
           src={'images/logo.svg'}
           alt="logo"
@@ -19,27 +21,28 @@ const NavbarMenu = () => {
       </Navbar.Brand>
       <Navbar.Toggle
         aria-controls="basic-navbar-nav"
-        className="mr-auto"
+        className="me-auto"
       ></Navbar.Toggle>
-      <Navbar.Collapse id="basic-navbar-nav">
+      <Navbar.Collapse id="basic-navbar-nav" >
         <Nav>
-          <Nav.Link className="font-weight-bolder text-white" href="/dashboard">
+          <Nav.Link className="fw-bolder text-white" href="/dashboard">
           Dashboard
           </Nav.Link>
-          <Nav.Link className="font-weight-bolder text-white" href="/about">
+          <Nav.Link className="fw-bolder text-white" href="/about">
             About
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
       <Nav className="d-flex flex-row">
-        <Nav.Link className="font-weight-bolder text-white" disabled>
+        <Nav.Link className="fw-bolder text-white" disabled>
           Welcome {authStore.user?.username||''}
         </Nav.Link>
         <Button
-          variant="secondary"
-          className="font-weight-bolder text-white ml-2"
+          variant="warning"
+          className="fw-bolder text-white mx-2"
           onClick={() => {
             dispatch(logoutUser());
+            router.push('/login');
           }}
         >
           <img

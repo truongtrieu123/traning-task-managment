@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "utils/hooks";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import {
   Card,
   Spinner,
@@ -18,7 +18,8 @@ function Dashboard() {
   const postStore = useAppSelector((state) => state.postReducer);
   const authStore = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
-
+  const body = useRef<any>(null);
+  
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getAllPosts());
@@ -26,17 +27,16 @@ function Dashboard() {
     fetchData();
   }, []);
 
-  let body;
   if (postStore.postsLoading) {
-    body = (
+    body.current = (
       <div className="spinner-container">
         <Spinner animation="border" variant="info" />
       </div>
     );
   } else if (postStore.posts.length === 0) {
-    body = (
+    body.current = (
       <Card>
-        <Card.Header as="h1">Hi {authStore.user.username}</Card.Header>
+        <Card.Header as="h1">Hi {authStore.user?.username||''}</Card.Header>
         <Card.Body>
           <Card.Title>Welcome to learnIt</Card.Title>
           <Card.Text>
@@ -49,7 +49,7 @@ function Dashboard() {
       </Card>
     );
   } else {
-    body = (
+    body.current = (
       <>
         <Row className="row-cols-1 row-cols-md-3 g-4 mx-auto mt-3">
           {postStore.posts.map((post) => (
@@ -60,7 +60,7 @@ function Dashboard() {
         </Row>
         <OverlayTrigger
           placement="left"
-          overlay={<Tooltip>Add new post modal</Tooltip>}
+          overlay={<Tooltip className = 'tooltip'>Add new post modal</Tooltip>}
         >
           <Button className="btn-floating" onClick={() => dispatch(showAddPostModal())}>
             <img
@@ -76,7 +76,7 @@ function Dashboard() {
   }
   return (
     <div>
-      {body}
+      {body.current}
       <AddPostModal />
       {postStore.showEditPostModal && (
         <EditPostModal

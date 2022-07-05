@@ -14,7 +14,7 @@ const SinglePost = ({ post }: IProps) => {
 
   return (
     <Card
-      className="shadow"
+      className="shadow h-100 rounded"
       border={
         status === PostStatus.learned
           ? AlertMessageType.success
@@ -23,7 +23,7 @@ const SinglePost = ({ post }: IProps) => {
           : AlertMessageType.danger
       }
     >
-      <Card.Header>
+      <Card.Header className = 'h-100'>
         <Card.Title>
           <Row>
             <Col>

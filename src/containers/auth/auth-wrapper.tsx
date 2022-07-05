@@ -5,32 +5,40 @@ import { isAuthToken } from 'utils/auth';
 import { loadUser } from 'store/actions';
 import HypnosisLoading from 'components/hypnosis-loading';
 
-export const AuthGuard = ({ children }: { children: JSX.Element }) => {
+interface IProps{
+  children: JSX.Element
+}
+
+export const AuthWrapper = ({ children }: IProps) => {
   const router = useRouter();
   const authStore = useAppSelector((state)=>state.authReducer);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (isAuthToken()) {
-      const check = async () => {
-        console.log('check');
-        const res = await dispatch(loadUser());
-        if (!res) {
+      const check = dispatch(loadUser());
+        if (!check) {
           router.push('/login');
         }
-      }
-      check();
     }
   }, []);
+
+  useEffect(()=>{
+    if (!authStore.authLoading) {
+      if (!authStore.user && !authStore.isAuthenticated) {
+        router.push('/login');
+      }
+    }
+  },[authStore.isAuthenticated, authStore.user, authStore.authLoading])
 
   /* show loading indicator while the auth provider is still initializing */
   if (authStore.authLoading) {
     return <HypnosisLoading/>;
   }
-  console.log(authStore.isAuthenticated, authStore.user);
   // if auth initialized with a valid user show protected page
   if (authStore.isAuthenticated && authStore.user) {
     return <>{children}</>;
   }
+
 
   /* otherwise don't return anything, will do a redirect from useEffect */
   return null;

@@ -5,7 +5,7 @@ export type UserType = {
 export type AuthStore = {
   authLoading: boolean;
   isAuthenticated: boolean;
-  user: UserType;
+  user: UserType | null;
 };
 
 export type ActionMap<M extends { [index: string]: any }> = {
@@ -29,7 +29,7 @@ export interface AuthPayload {
     isAuthenticated: boolean;
     user: any;
   };
-  [AuthActionsType.START_AUTH_LOADING]: {}
+  [AuthActionsType.START_AUTH_LOADING]: {};
 }
 
 export type AuthActions = ActionMap<AuthPayload>[keyof ActionMap<AuthPayload>];

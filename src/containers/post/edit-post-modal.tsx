@@ -2,8 +2,17 @@ import { useAppDispatch, useAppSelector } from "utils/hooks";
 import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { editPost, hideEditPostModal } from "store/actions";
+import { PostStatus } from "types/post.type";
 
-const EditPostModal = ({ _id, status, title, description, url }) => {
+interface IProps{
+  _id:string, 
+  status:PostStatus, 
+  title:string,
+  description:string, 
+  url:string,
+}
+
+const EditPostModal = ({ _id, status, title, description, url }:IProps) => {
   const postStore = useAppSelector((state) => state.postReducer);
   const dispatch = useAppDispatch();
 

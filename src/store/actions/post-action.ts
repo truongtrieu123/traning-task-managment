@@ -2,22 +2,25 @@ import { PostActionsType, PostStatus } from "./../../types/post.type";
 import axios from "axios";
 import { apiUrl } from "constants/index";
 
-export const findPostById = (id: number) => (dispatch: any, getState: any) => {
-  if (id !== -1) {
-    dispatch({
-      type: PostActionsType.FIND_POST,
-      payload: id,
-    });
-  }
+export const findPostById = (_id: string) => (dispatch: any, getState: any) => {
+  dispatch({
+    type: PostActionsType.FIND_POST,
+    payload: {
+      id: _id,
+    },
+  });
 };
 
 export const getAllPosts = () => async (dispatch: any, getState: any) => {
   try {
     const response = await axios.get(`${apiUrl}/posts`);
     if (response.data.success) {
+      console.log(response.data.posts);
       dispatch({
         type: PostActionsType.POSTS_LOADED_SUCCESS,
-        payload: response.data.posts,
+        payload: {
+          posts: response.data.posts,
+        },
       });
     }
   } catch (error) {
@@ -31,20 +34,24 @@ export const createNewPost = (post) => async (dispatch: any, getState: any) => {
     if (response.data.success) {
       dispatch({
         type: PostActionsType.ADD_POST,
-        payload: response.data.post,
+        payload: {
+          post: response.data.post,
+        },
       });
     }
   } catch (error) {}
 };
 
 export const deletePost =
-  (id: number) => async (dispatch: any, getState: any) => {
+  (id: string) => async (dispatch: any, getState: any) => {
     try {
       const response = await axios.delete(`${apiUrl}/posts/${id}`);
       if (response.data.success) {
         dispatch({
           type: PostActionsType.DELETE_POST,
-          payload: id,
+          payload: {
+            id,
+          },
         });
       }
     } catch (error) {}
@@ -52,7 +59,7 @@ export const deletePost =
 
 export const editPost =
   (
-    _id: number,
+    _id: string,
     newPost: {
       title: string;
       url: string;

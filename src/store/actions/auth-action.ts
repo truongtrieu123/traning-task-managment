@@ -3,7 +3,11 @@ import axios from "axios";
 import { TOKEN_KEY } from "constants/index";
 import { apiUrl } from "constants/index";
 import { isAuthToken, setAuthToken } from "utils/auth";
-import { getSessionStorage, setSessionStorage } from "utils/storage";
+import {
+  deleteLocalStorage,
+  getLocalStorage,
+  setLocalStorage,
+} from "utils/storage";
 
 export const startAuthLoading = () => (dispatch: any, getState: any) => {
   dispatch({
@@ -14,7 +18,7 @@ export const startAuthLoading = () => (dispatch: any, getState: any) => {
 
 export const loadUser = () => async (dispatch: any, getState: any) => {
   if (isAuthToken()) {
-    setAuthToken(getSessionStorage(TOKEN_KEY));
+    setAuthToken(getLocalStorage(TOKEN_KEY));
   }
   startAuthLoading();
   try {
@@ -46,10 +50,7 @@ export const loginUser =
     try {
       const response = await axios.post(`${apiUrl}/auth/login`, userForm);
       if (response.data.success) {
-        setSessionStorage(
-          TOKEN_KEY,
-          response.data.accessToken
-        );
+        setLocalStorage(TOKEN_KEY, response.data.accessToken);
         dispatch({
           type: AuthActionsType.SET_AUTH,
           payload: {
@@ -70,11 +71,8 @@ export const registerUser =
     startAuthLoading();
     try {
       const response = await axios.post(`${apiUrl}/auth/register`, userForm);
-      if (response.data.success){
-        setSessionStorage(
-          TOKEN_KEY,
-          response.data.accessToken
-        );
+      if (response.data.success) {
+        setLocalStorage(TOKEN_KEY, response.data.accessToken);
         dispatch({
           type: AuthActionsType.SET_AUTH,
           payload: {
@@ -91,7 +89,7 @@ export const registerUser =
   };
 
 export const logoutUser = () => (dispatch: any, getState: any) => {
-  sessionStorage.removeItem(TOKEN_KEY);
+  setLocalStorage(TOKEN_KEY, null);
   dispatch({
     type: AuthActionsType.SET_AUTH,
     payload: { isAuthenticated: false, user: null },

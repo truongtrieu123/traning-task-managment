@@ -16,11 +16,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Provider store={store}>
-        <React.StrictMode>
+
+      <React.StrictMode>
+        <Provider store={store}>
           <Component {...pageProps} />
-        </React.StrictMode>
-      </Provider>
+        </Provider>
+      </React.StrictMode>
     </div>
   );
 }

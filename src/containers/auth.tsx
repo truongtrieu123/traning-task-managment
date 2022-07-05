@@ -1,14 +1,20 @@
-import { useAppSelector } from "utils/hooks";
+import { useAppDispatch, useAppSelector } from "utils/hooks";
 import { useRouter } from "next/router";
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import LoginForm from "./auth/login-form";
 import RegisterForm from "./auth/register-form";
+import { loadUser } from "store/actions/auth-action";
 
 const AuthPage = () => {
   const authStore = useAppSelector((state) => state.authReducer);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const body = useRef<ReactNode>(null);
+
+  useEffect(()=>{
+    dispatch(loadUser());
+  },[])
 
   if (authStore.authLoading) {
     body.current = (

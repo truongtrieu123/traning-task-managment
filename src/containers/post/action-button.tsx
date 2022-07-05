@@ -3,7 +3,12 @@ import  Button  from "react-bootstrap/Button";
 import { useAppDispatch, useAppSelector } from "utils/hooks";
 import { showEditPostModal ,findPostById, deletePost} from "store/actions/post-action";
 
-const ActionButton = ({ url, _id }) => {
+interface IProps{
+  url:string,
+  _id:string,
+}
+
+const ActionButton = ({ url, _id }:IProps) => {
   const dispatch = useAppDispatch();
 
   const handleEdit = () => {

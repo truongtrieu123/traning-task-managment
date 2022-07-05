@@ -1,12 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {  useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "utils/hooks";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import AlertMessage from "components/aler-message";
 import Link from "next/link";
 import { registerUser } from "store/actions/auth-action";
-
 
 const defaultFormValue = {
   username: "",
@@ -15,7 +14,7 @@ const defaultFormValue = {
 };
 
 const RegisterForm = () => {
-  const authStore = useAppSelector((state)=>state.authReducer);
+  const authStore = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -24,7 +23,10 @@ const RegisterForm = () => {
   const { username, password, confirmPassword } = registerForm;
 
   const onChangeRegisterForm = (event) => {
-    setRegisterForm({ ...registerForm, [event.target.name]: event.target.value });
+    setRegisterForm({
+      ...registerForm,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const register = async (event) => {
@@ -42,13 +44,11 @@ const RegisterForm = () => {
       const registerData = await dispatch(registerUser(registerForm));
       if (registerData.success) {
         router.push("/dashboard");
-      }
-      else {
+      } else {
         setAlertMessage({ type: "danger", message: registerData.message });
         setTimeout(() => setAlertMessage(defaultFormValue), 5000);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
@@ -94,7 +94,7 @@ const RegisterForm = () => {
         </Button>
       </Form>
       <p>
-        Already have an account?
+        <span className="px-2"> Already have an account?</span>
         <Link href="/login">
           <Button variant="info" size="sm" className="ml-2">
             Login

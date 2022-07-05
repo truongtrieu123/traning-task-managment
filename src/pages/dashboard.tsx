@@ -1,16 +1,17 @@
 import { GetStaticProps, InferGetStaticPropsType } from "next/types";
 import DefaultLayout from "containers/layout/layout";
-import { AuthGuard } from "containers/auth/auth-guard";
+import { AuthWrapper } from "containers/auth/auth-wrapper";
+import Dashboard from "containers/dashboard";
 
 const DashboardPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
   return (
-    <AuthGuard>
+    <AuthWrapper>
       <DefaultLayout>
-        <DashboardPage />
+        <Dashboard />
       </DefaultLayout>
-    </AuthGuard>
+    </AuthWrapper>
   );
 };
 

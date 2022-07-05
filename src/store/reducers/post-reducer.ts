@@ -32,7 +32,7 @@ const postReducer = (state = initialState, action: PostActions): PostStore => {
     case PostActionsType.DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id === action.payload.id),
+        posts: state.posts.filter((post) => post._id !== action.payload.id),
       };
     case PostActionsType.FIND_POST:
       const post = state.posts.find((post) => post._id === action.payload.id);

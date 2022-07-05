@@ -1,6 +1,6 @@
 import axios from "axios";
 import { TOKEN_KEY } from "constants/index";
-import { getSessionStorage } from "./storage";
+import { getLocalStorage } from "./storage";
 
 export const setAuthToken = (token) => {
   if (token) {
@@ -11,5 +11,7 @@ export const setAuthToken = (token) => {
 };
 
 export const isAuthToken = () => {
-  return !!getSessionStorage(TOKEN_KEY);
+  console.log(getLocalStorage(TOKEN_KEY));
+  console.log(!!getLocalStorage(TOKEN_KEY));
+  return !!getLocalStorage(TOKEN_KEY);
 };

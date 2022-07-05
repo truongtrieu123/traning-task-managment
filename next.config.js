@@ -1,6 +1,5 @@
 module.exports = {
   swcMinify: true,
-  esmExternals: false
 };
 module.exports = {
   async redirects() {
@@ -12,4 +11,4 @@ module.exports = {
       },
     ];
   },
-}
+};
