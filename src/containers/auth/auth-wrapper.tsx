@@ -22,13 +22,6 @@ export const AuthWrapper = ({ children }: IProps) => {
     }
   }, []);
 
-  useEffect(()=>{
-    if (!authStore.authLoading) {
-      if (!authStore.user && !authStore.isAuthenticated) {
-        router.push('/login');
-      }
-    }
-  },[authStore.isAuthenticated, authStore.user, authStore.authLoading])
 
   /* show loading indicator while the auth provider is still initializing */
   if (authStore.authLoading) {

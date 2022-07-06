@@ -8,10 +8,10 @@ const About = () => {
       <Col className="text-center">
         <Button
           variant="primary"
-          href="https://www.youtube.com/channel/UCsPBKegAgpm2LES2ArWw3qg"
+          href="https://www.youtube.com/channel/UC29ju8bIPH5as8OGnQzwJyA"
           size="lg"
         >
-          Visit my channels for more tutorials
+          Visit this channel for more tutorials
         </Button>
       </Col>
     </Row>
