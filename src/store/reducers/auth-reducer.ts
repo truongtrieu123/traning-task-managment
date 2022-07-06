@@ -11,7 +11,6 @@ const initialState: AuthStore = {
 };
 
 const authReducer = (state = initialState, action: AuthActions): AuthStore => {
-  console.log(action);
   switch (action.type) {
     case AuthActionsType.SET_AUTH:
       return {

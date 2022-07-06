@@ -15,7 +15,6 @@ export const getAllPosts = () => async (dispatch: any, getState: any) => {
   try {
     const response = await axios.get(`${apiUrl}/posts`);
     if (response.data.success) {
-      console.log(response.data.posts);
       dispatch({
         type: PostActionsType.POSTS_LOADED_SUCCESS,
         payload: {

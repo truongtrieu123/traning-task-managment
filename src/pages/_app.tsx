@@ -8,6 +8,7 @@ import "../styles/index.css";
 import "../styles/app.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const AnyComponent = Component as any;
   return (
     <div>
       <Head>
@@ -19,7 +20,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
       <React.StrictMode>
         <Provider store={store}>
-          <Component {...pageProps} />
+          <AnyComponent {...pageProps} />
         </Provider>
       </React.StrictMode>
     </div>
